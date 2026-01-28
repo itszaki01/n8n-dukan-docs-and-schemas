@@ -34,7 +34,7 @@ export interface IProductDto {
 
     oldPrice: number;
 
-    slug: string;
+    slug: string; //Must be in english characters only
 
     store_stock_variable?: string;
 
@@ -252,7 +252,7 @@ export class CreateStoreProductDto {
 
     @IsString()
     @IsNotEmpty()
-    slug: string;
+    slug: string; //Must be in english characters only
 
     @IsArray()
     @IsOptional()
@@ -551,7 +551,7 @@ export class StoreProduct {
     @Prop({ default: 0 })
     oldPrice: number;
 
-    @Prop({ trim: true, required: true })
+    @Prop({ trim: true, required: true }) //Must be in english characters only
     slug: string;
 
     @Prop({
@@ -658,3 +658,4 @@ export class StoreProduct {
 
     _id?: string;
 }
+
