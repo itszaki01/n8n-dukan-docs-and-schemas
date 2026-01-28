@@ -140,3 +140,520 @@ export interface IProductDto {
     customShppingToStopDeskPrice?: number;
     freeShippingToStopDesk?: boolean;
 }
+
+//Nest Js Dto
+export class CreateStoreProductDto {
+    @IsBoolean()
+    @IsOptional()
+    showProduct: boolean;
+
+    @IsOptional()
+    @IsBoolean()
+    allowSpecialGoogleSheet?: boolean;
+
+    @IsOptional()
+    @IsBoolean()
+    disableAddToShoppingCart?: boolean;
+
+    @IsOptional()
+    @IsBoolean()
+    disableSuggestedProducts?: boolean;
+
+    @IsBoolean()
+    @IsOptional()
+    isLimitedQtty: boolean;
+
+    @IsOptional()
+    @IsNumber()
+    remainingQtty: number;
+
+    @IsOptional()
+    @IsString()
+    specialGoogleSheetsApiKey?: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @MaxLength(200)
+    name: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @MaxLength(20)
+    productShortName: string;
+
+    @IsOptional()
+    @IsNumber()
+    @Min(0)
+    productFees: number;
+
+    @IsNumber()
+    @IsNotEmpty()
+    @Min(1)
+    price: number;
+
+    @IsString()
+    @MaxLength(300)
+    @IsOptional()
+    description?: string;
+
+    @IsBoolean()
+    @IsOptional()
+    freeShipping: boolean;
+
+    @IsBoolean()
+    @IsOptional()
+    landingPage: boolean;
+
+    @IsNotEmpty()
+    @IsString()
+    productSku: string;
+
+    @IsMongoId()
+    @IsString()
+    @IsOptional()
+    store_stock_variable?: string;
+
+    @IsObject()
+    @IsOptional()
+    colors?: StoreProduct["colors"];
+
+    @IsNotEmpty()
+    imageCover: string;
+
+    @IsArray()
+    @IsNotEmpty()
+    images: [
+        {
+            imageUrl: string;
+            imageVar?: string;
+        },
+    ];
+
+    @IsString()
+    @IsOptional()
+    category: string;
+
+    @IsString()
+    @IsOptional()
+    categorySub: string;
+
+    @IsArray()
+    @IsOptional()
+    otherProperties?: StoreProduct["otherProperties"];
+
+    @IsNumber()
+    @IsOptional()
+    rating: number;
+
+    @IsNumber()
+    @IsOptional()
+    oldPrice: number;
+
+    @IsString()
+    @IsNotEmpty()
+    slug: string;
+
+    @IsArray()
+    @IsOptional()
+    offers?: StoreProduct["offers"];
+
+    @IsArray()
+    @IsOptional()
+    reviews?: StoreProduct["reviews"];
+
+    @IsString()
+    @IsOptional()
+    productDesc: string;
+
+    @IsArray()
+    @IsOptional()
+    seoKeywords: string[];
+
+    @IsString()
+    @IsOptional()
+    seoDescreption: string;
+
+    @IsString()
+    @IsOptional()
+    seoImgUrl: string;
+
+    @IsBoolean()
+    @IsOptional()
+    allowOrdersWhenStockIsEmpty?: boolean;
+
+    @IsOptional()
+    @IsMongoId()
+    defaultConfirmatinoMember?: string;
+
+    @IsOptional()
+    @IsBoolean()
+    isPropertiesRequired?: boolean;
+
+    @IsString()
+    @IsOptional()
+    stockEmptyReaction?: StoreProduct["stockEmptyReaction"];
+
+    @IsOptional()
+    @IsBoolean()
+    allowCustomThankYouPage?: boolean;
+
+    @IsString()
+    @IsOptional()
+    customThankYouPageHtml?: string;
+
+    @IsBoolean()
+    @IsOptional()
+    allowCustomShippingToHomePrice?: boolean;
+
+    @IsNumber()
+    @IsOptional()
+    customShippingToHomePrice?: number;
+
+    @IsBoolean()
+    @IsOptional()
+    allowCustomShppingToStopDeskPrice?: boolean;
+
+    @IsNumber()
+    @IsOptional()
+    customShppingToStopDeskPrice?: number;
+
+    @IsBoolean()
+    @IsOptional()
+    freeShippingToStopDesk?: boolean;
+}
+
+//Mongoose Schema
+export class StoreProduct {
+    @Prop()
+    allowSpecialGoogleSheet?: boolean;
+
+    @Prop()
+    hasMultiSelect?: boolean;
+
+    @Prop()
+    hasOffers?: boolean;
+
+    @Prop()
+    hasProperteisLimtedQtty?: boolean;
+
+    @Prop()
+    hasOtherProperties?: boolean;
+
+    @Prop()
+    hasProperties?: boolean;
+
+    @Prop()
+    hasColors?: boolean;
+
+    @Prop()
+    hasCustomPrices?: boolean;
+
+    @Prop()
+    hasReviews?: boolean;
+
+    @Prop({ trim: true })
+    specialGoogleSheetsApiKey?: string;
+
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Store.name })
+    store: string;
+
+    @Prop()
+    showProduct: boolean;
+
+    @Prop()
+    disableAddToShoppingCart?: boolean;
+
+    @Prop()
+    disableSuggestedProducts?: boolean;
+
+    @Prop({ type: String, required: true, trim: true, uppercase: true })
+    productSku: string;
+
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: StoreStock.name })
+    store_stock_variable?: string;
+
+    @Prop()
+    name: string;
+
+    @Prop({ trim: true, default: "" })
+    productShortName: string;
+
+    @Prop({ default: 0 })
+    productFees: number;
+
+    @Prop()
+    price: number;
+
+    @Prop({ default: "" })
+    description?: string;
+
+    @Prop({ default: false })
+    freeShipping: boolean;
+
+    @Prop()
+    isLimitedQtty: boolean;
+
+    @Prop({ default: 0 })
+    remainingQtty: number;
+
+    @Prop({ default: false })
+    landingPage: boolean;
+
+    @Prop({ default: false })
+    isDeleted?: boolean;
+
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: UserStore.name })
+    defaultConfirmatinoMember?: string;
+
+    @Prop({
+        type: Date,
+        default: undefined,
+        index: { expireAfterSeconds: 0 },
+    })
+    expireAt?: Date;
+
+    @Prop({
+        type: {
+            multiSelect: { type: Boolean },
+            allowCustomPrices: { type: Boolean },
+            allowLinkWithProperties: Boolean,
+            title: String,
+            list: [
+                {
+                    hex: { type: String },
+                    showColor: { type: Boolean },
+                    allowColor: { type: Boolean, default: true },
+                    colorSku: { type: String, trim: true, uppercase: true },
+                    name: { type: String, required: true },
+                    isColor: { type: Boolean, default: true },
+                    imageVar: { type: String, trim: true },
+                    isLimitedQtty: { type: Boolean },
+                    remainingQtty: { type: Number },
+                    allowCustomPrice: { type: Boolean },
+                    customPrice: { type: Number, default: 1 },
+                    allowCustomFees: { type: Boolean },
+                    customFees: { type: Number, default: 0 },
+                    linkedProperties: [String],
+                    hasIcon: Boolean,
+                    iconUrl: String,
+                    store_stock_variable: { type: mongoose.Schema.Types.ObjectId, ref: StoreStock.name },
+                },
+            ],
+        },
+    })
+    colors?: {
+        multiSelect: boolean;
+        allowCustomPrices: boolean;
+        allowLinkWithProperties: boolean;
+        title?: string;
+        list: {
+            _id?: string;
+            showColor?: boolean;
+            allowColor?: boolean;
+            hex: string;
+            colorSku?: string;
+            isColor: boolean;
+            allowCustomPrice: boolean;
+            customPrice: number;
+            allowCustomFees: boolean;
+            customFees: number;
+            name: string;
+            imageVar?: string;
+            isLimitedQtty: boolean;
+            remainingQtty?: number;
+            linkedProperties?: string[];
+            hasIcon: boolean;
+            iconUrl: string;
+            store_stock_variable?: string;
+        }[];
+    };
+
+    @Prop({ required: true })
+    imageCover: string;
+
+    @Prop({
+        type: [{ imageUrl: { type: String, required: true }, imageVar: { type: String, trim: true }, showImage: { type: Boolean, default: true } }],
+    })
+    images: [
+        {
+            _id?: string;
+            imageUrl: string;
+            imageVar?: string;
+            showImage?: boolean;
+        },
+    ];
+
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: StoreCategory.name })
+    category: string;
+
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: StoreCategorySub.name })
+    categorySub: string;
+
+    @Prop({
+        type: [
+            {
+                title: { type: String, required: true },
+                multiSelect: { type: Boolean },
+                allowCustomPrices: { type: Boolean },
+                properties: [
+                    {
+                        showProperty: { type: Boolean },
+                        allowProperty: { type: Boolean, default: true },
+                        name: { type: String, required: true },
+                        hasIcon: { type: Boolean },
+                        propertySku: { type: String, trim: true, uppercase: true },
+                        imageVar: { type: String, trim: true },
+                        isLimitedQtty: { type: Boolean },
+                        remainingQtty: { type: Number },
+                        allowCustomPrice: { type: Boolean },
+                        customPrice: { type: Number, default: 1 },
+                        allowCustomFees: { type: Boolean },
+                        customFees: { type: Number, default: 0 },
+                        store_stock_variable: { type: mongoose.Schema.Types.ObjectId, ref: StoreStock.name },
+                        iconUrl: { type: String },
+                    },
+                ],
+            },
+        ],
+        default: [],
+    })
+    otherProperties?: [
+        {
+            _id?: ObjectId;
+            title: string;
+            multiSelect: boolean;
+            allowCustomPrices: boolean;
+            propertyId: string;
+            properties: {
+                _id?: ObjectId;
+                showProperty?: boolean;
+                allowProperty?: boolean;
+                name: string;
+                hasIcon: boolean;
+                propertySku?: string;
+                allowCustomPrice: boolean;
+                customPrice: number;
+                allowCustomFees: boolean;
+                customFees: number;
+                imageVar?: string;
+                isLimitedQtty: boolean;
+                remainingQtty?: number;
+                store_stock_variable?: string;
+                iconUrl: string;
+            }[];
+        },
+    ];
+
+    @Prop({ default: 0 })
+    rating: number;
+
+    @Prop({ default: 0 })
+    oldPrice: number;
+
+    @Prop({ trim: true })
+    slug: string;
+
+    @Prop({
+        type: [
+            {
+                offerName: { type: String },
+                quanitity: { type: Number },
+                offerProductPrice: { type: Number, default: 1 },
+                freeShipping: { type: Boolean },
+                bestOffer: { type: Boolean },
+                showOffer: { type: Boolean },
+                allowCustomImg: { type: Boolean, default: false },
+                defaultSelected: { type: Boolean },
+                customImgLink: String,
+                customColor: String,
+            },
+        ],
+        default: [],
+    })
+    offers?: {
+        _id?: string;
+        offerName: string;
+        quanitity: number;
+        defaultSelected: boolean;
+        offerProductPrice: number;
+        freeShipping: boolean;
+        bestOffer: boolean;
+        showOffer?: boolean;
+        allowCustomImg: boolean;
+        customImgLink: string;
+        customColor?: string;
+    }[];
+
+    @Prop({
+        type: [
+            {
+                gender: { type: String, enum: ["male", "female"], default: "male" },
+                isFemale: { type: Boolean },
+                allowRaterProfileImage: { type: Boolean },
+                raterProfileImage: { type: String },
+                raterName: { type: String },
+                rating: { type: Number },
+                review: { type: String },
+                imageUrl: { type: String },
+            },
+        ],
+        default: [],
+    })
+    reviews?: {
+        gender: "male" | "female";
+        allowRaterProfileImage: boolean;
+        raterProfileImage: string;
+        raterName: string;
+        rating: number;
+        review: string;
+        imageUrl: string;
+    }[];
+
+    @Prop()
+    productDesc: string;
+
+    @Prop()
+    seoKeywords: string[];
+
+    @Prop()
+    seoDescreption: string;
+
+    @Prop()
+    seoImgUrl: string;
+
+    @Prop({ default: false })
+    allowOrdersWhenStockIsEmpty?: boolean;
+
+    @Prop({ default: true })
+    isPropertiesRequired?: boolean;
+
+    @Prop({ default: false })
+    allowCustomThankYouPage?: boolean;
+
+    @Prop()
+    customThankYouPageHtml?: string;
+
+    @Prop()
+    allowCustomShippingToHomePrice?: boolean;
+
+    @Prop()
+    customShippingToHomePrice?: number;
+
+    @Prop()
+    allowCustomShppingToStopDeskPrice?: boolean;
+
+    @Prop()
+    customShppingToStopDeskPrice?: number;
+
+    @Prop()
+    freeShippingToStopDesk?: boolean;
+
+    @Prop({
+        type: String,
+        enum: ["nothing", "hide-properties", "disable-properties", "hide-and-show-properties", "disable-and-allow-properties"],
+        default: "disable-and-allow-properties",
+    })
+    stockEmptyReaction?: "nothing" | "hide-properties" | "disable-properties" | "hide-and-show-properties" | "disable-and-allow-properties";
+
+    _id?: string;
+}
