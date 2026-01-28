@@ -1,3 +1,4 @@
+//Front End Payload
 export interface IProductDto {
     allowSpecialGoogleSheet?: boolean;
 
@@ -324,7 +325,7 @@ export class CreateStoreProductDto {
 
 //Mongoose Schema
 export class StoreProduct {
-    @Prop()
+    @Prop({ default: false })
     allowSpecialGoogleSheet?: boolean;
 
     @Prop()
@@ -357,13 +358,13 @@ export class StoreProduct {
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Store.name })
     store: string;
 
-    @Prop()
+    @Prop({ default: true })
     showProduct: boolean;
 
-    @Prop()
+    @Prop({ default: false })
     disableAddToShoppingCart?: boolean;
 
-    @Prop()
+    @Prop({ default: false })
     disableSuggestedProducts?: boolean;
 
     @Prop({ type: String, required: true, trim: true, uppercase: true })
@@ -372,16 +373,16 @@ export class StoreProduct {
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: StoreStock.name })
     store_stock_variable?: string;
 
-    @Prop()
+    @Prop({ required: true })
     name: string;
 
-    @Prop({ trim: true, default: "" })
+    @Prop({ trim: true, required: true })
     productShortName: string;
 
     @Prop({ default: 0 })
     productFees: number;
 
-    @Prop()
+    @Prop({ required: true })
     price: number;
 
     @Prop({ default: "" })
@@ -390,7 +391,7 @@ export class StoreProduct {
     @Prop({ default: false })
     freeShipping: boolean;
 
-    @Prop()
+    @Prop({ default: false })
     isLimitedQtty: boolean;
 
     @Prop({ default: 0 })
@@ -414,27 +415,27 @@ export class StoreProduct {
 
     @Prop({
         type: {
-            multiSelect: { type: Boolean },
-            allowCustomPrices: { type: Boolean },
-            allowLinkWithProperties: Boolean,
+            multiSelect: { type: Boolean, default: true },
+            allowCustomPrices: { type: Boolean, default: false },
+            allowLinkWithProperties: { type: Boolean, default: false },
             title: String,
             list: [
                 {
-                    hex: { type: String },
-                    showColor: { type: Boolean },
+                    hex: { type: String, required: true },
+                    showColor: { type: Boolean, default: true },
                     allowColor: { type: Boolean, default: true },
                     colorSku: { type: String, trim: true, uppercase: true },
                     name: { type: String, required: true },
                     isColor: { type: Boolean, default: true },
                     imageVar: { type: String, trim: true },
-                    isLimitedQtty: { type: Boolean },
-                    remainingQtty: { type: Number },
+                    isLimitedQtty: { type: Boolean, default: false },
+                    remainingQtty: { type: Number, default: 0 },
                     allowCustomPrice: { type: Boolean },
                     customPrice: { type: Number, default: 1 },
-                    allowCustomFees: { type: Boolean },
+                    allowCustomFees: { type: Boolean, default: false },
                     customFees: { type: Number, default: 0 },
                     linkedProperties: [String],
-                    hasIcon: Boolean,
+                    hasIcon: { type: Boolean, default: false },
                     iconUrl: String,
                     store_stock_variable: { type: mongoose.Schema.Types.ObjectId, ref: StoreStock.name },
                 },
@@ -484,30 +485,30 @@ export class StoreProduct {
     ];
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: StoreCategory.name })
-    category: string;
+    category?: string;
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: StoreCategorySub.name })
-    categorySub: string;
+    categorySub?: string;
 
     @Prop({
         type: [
             {
                 title: { type: String, required: true },
-                multiSelect: { type: Boolean },
-                allowCustomPrices: { type: Boolean },
+                multiSelect: { type: Boolean, default: false },
+                allowCustomPrices: { type: Boolean, default: false },
                 properties: [
                     {
-                        showProperty: { type: Boolean },
+                        showProperty: { type: Boolean, default: true },
                         allowProperty: { type: Boolean, default: true },
                         name: { type: String, required: true },
-                        hasIcon: { type: Boolean },
+                        hasIcon: { type: Boolean, default: false },
                         propertySku: { type: String, trim: true, uppercase: true },
                         imageVar: { type: String, trim: true },
-                        isLimitedQtty: { type: Boolean },
-                        remainingQtty: { type: Number },
+                        isLimitedQtty: { type: Boolean, default: false },
+                        remainingQtty: { type: Number, default: 0 },
                         allowCustomPrice: { type: Boolean },
                         customPrice: { type: Number, default: 1 },
-                        allowCustomFees: { type: Boolean },
+                        allowCustomFees: { type: Boolean, default: false },
                         customFees: { type: Number, default: 0 },
                         store_stock_variable: { type: mongoose.Schema.Types.ObjectId, ref: StoreStock.name },
                         iconUrl: { type: String },
@@ -550,18 +551,18 @@ export class StoreProduct {
     @Prop({ default: 0 })
     oldPrice: number;
 
-    @Prop({ trim: true })
+    @Prop({ trim: true, required: true })
     slug: string;
 
     @Prop({
         type: [
             {
-                offerName: { type: String },
+                offerName: { type: String, required: true },
                 quanitity: { type: Number },
                 offerProductPrice: { type: Number, default: 1 },
-                freeShipping: { type: Boolean },
-                bestOffer: { type: Boolean },
-                showOffer: { type: Boolean },
+                freeShipping: { type: Boolean, default: false },
+                bestOffer: { type: Boolean, default: false },
+                showOffer: { type: Boolean, default: false },
                 allowCustomImg: { type: Boolean, default: false },
                 defaultSelected: { type: Boolean },
                 customImgLink: String,
@@ -630,22 +631,22 @@ export class StoreProduct {
     @Prop({ default: false })
     allowCustomThankYouPage?: boolean;
 
-    @Prop()
+    @Prop({ default: "" })
     customThankYouPageHtml?: string;
 
-    @Prop()
+    @Prop({ default: false })
     allowCustomShippingToHomePrice?: boolean;
 
-    @Prop()
+    @Prop({ default: 0 })
     customShippingToHomePrice?: number;
 
-    @Prop()
+    @Prop({ default: false })
     allowCustomShppingToStopDeskPrice?: boolean;
 
-    @Prop()
+    @Prop({ default: 0 })
     customShppingToStopDeskPrice?: number;
 
-    @Prop()
+    @Prop({ default: false })
     freeShippingToStopDesk?: boolean;
 
     @Prop({
