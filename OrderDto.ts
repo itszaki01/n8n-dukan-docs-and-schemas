@@ -1,15 +1,13 @@
 {
   "type": "object",
   "required": [
-    "subStore",
     "clientName",
     "shippingType",
     "orderedProducts"
   ],
   "properties": {
-    "subStore": {
-      "type": "string",
-      "description": "Mongo ObjectId"
+    "isUncompletedOrder": {
+      "type": "boolean"
     },
     "locationId": {
       "type": "string"
@@ -38,51 +36,6 @@
     "shippingType": {
       "type": "string",
       "enum": ["للمنزل", "لنقطة الإستلام"]
-    },
-    "isFreeShipping": {
-      "type": "boolean"
-    },
-    "orderStatus": {
-      "type": "string",
-      "enum": [
-        "جديد",
-        "مكالمة 1",
-        "مكالمة 2",
-        "مكالمة 3",
-        "مكالمة 4",
-        "مكالمة 5",
-        "مأكد",
-        "ملغي",
-        "مؤجل"
-      ]
-    },
-    "shippingDetails": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["fieldName", "fieldValue", "fieldType", "fieldId"],
-        "properties": {
-          "fieldName": { "type": "string" },
-          "fieldValue": { "type": "string" },
-          "fieldType": {
-            "type": "string",
-            "enum": [
-              "text",
-              "textarea",
-              "number-input",
-              "hidden",
-              "select",
-              "phone-number",
-              "locations",
-              "subLocations",
-              "client-name",
-              "second-phone-number",
-              "client-full-address"
-            ]
-          },
-          "fieldId": { "type": "string" }
-        }
-      }
     },
     "orderedProducts": {
       "type": "array",
