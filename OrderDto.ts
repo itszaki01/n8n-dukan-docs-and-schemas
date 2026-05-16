@@ -1,3 +1,79 @@
+    @IsMongoId()
+    @IsOptional()
+    locationId?: string;
+
+    @IsOptional()
+    @IsBoolean()
+    isUncompletedOrder?:booelan // make sure to check this twice
+
+    @IsString()
+    @IsOptional()
+    stopDeskId?: string;
+
+    @IsString()
+    @IsOptional()
+    clientName?: string = "غير معروف";
+
+    @IsString()
+    @IsOptional()
+    clientCity?: string;
+
+    @IsMongoId()
+    @IsOptional()
+    subLocationId?: string;
+
+    @IsString()
+    @IsOptional()
+    clientSecondPhoneNumber?: string;
+
+    @IsString()
+    @IsOptional()
+    clientFullAddress?: string;
+
+    @IsString()
+    @IsOptional()
+    clientPhoneNumber: string;
+
+    @IsNotEmpty()
+    @IsEnum(["للمنزل", "لنقطة الإستلام"])
+    shippingType: "للمنزل" | "لنقطة الإستلام";
+
+    @Exclude()
+    orderStatus: "جديد";
+
+    @IsString()
+    @IsOptional()
+    orderSourceUrl?: string;
+
+    @IsArray()
+    @IsOptional()
+    shippingDetails: StoreOrderCart["shippingDetails"];
+
+    @IsOptional()
+    @IsString()
+    coupon?: string;
+
+    @IsArray()
+    orderedProducts: {
+        productId: string;
+        validProduct: StoreProduct;
+        totalProductPrice: number;
+        totalProductFees?: number;
+        quentity: number;
+        propertiesSelected?: {
+            parentPropertyId: string;
+            childPropertiesSelected: {
+                childPropertyId: string;
+                childPropertyQtty?: number;
+            }[];
+        }[];
+        colorsSelected?: {
+            colorId: string;
+            colorQtty?: number;
+        }[];
+        offerId?: string;
+    }[];
+
 {
   "type": "object",
   "required": [
